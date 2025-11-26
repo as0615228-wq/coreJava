@@ -1,15 +1,16 @@
+
 package hospital;
 
-public abstract class person {
-protected String name;
-protected int age;
-protected String contact;
-public person(String name, int age, String contact) {
-	super();
-	this.name = name;
-	this.age = age;
-	this.contact = contact;
-}
+public abstract class person{
+    protected String name;
+    protected int age;
+    protected String contact;
 
-public abstract void getDetails();
+    public person(String name, int age, String contact) {
+        this.name = name;
+        this.age = age;
+        this.contact = contact;
+    }
+
+    public abstract void getDetails();
 }

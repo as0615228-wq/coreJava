@@ -1,7 +1,8 @@
+
 package hospital;
 
-public class InvalidAppointmentException extends Exception {
-public InvalidAppointmentException(String message) {
-	super(message);
-}
+class InvalidAppointmentException extends Exception {
+    public InvalidAppointmentException(String message) {
+        super(message);
+    }
 }

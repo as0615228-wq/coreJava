@@ -1,89 +1,155 @@
+
 package hospital;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class HospitalSystem {
-	private static List<Docter> docters = new ArrayList<>();
+	//[doc1, doc2, doc3]
+	private static List<Docter> doctors = new ArrayList<>(); // list of object
+	// doctors.get(1)
+    //[pa1, pa2, pa3]
 	private static List<Patient> patients = new ArrayList<>();
+    //[ap1, ap2, ap3]
 	private static List<Appointment> appointments = new ArrayList<>();
+    // user input Scanner class
+	private static Scanner scanner = new Scanner(System.in);
 	
-	private static Scanner scanner = new Scanner (System.in);
-	
-
-	public static void main(String[] args) {
-		initilizeData();
-		int choice;
-		do {
-            System.out.println("/--- Welcome To Anand Hospital---");
+    public static void main(String[] args) {
+      // call 
+    	initializeData();
+        int choice;
+        do {
+            System.out.println("\n--- Welcome To Anand Hospital ---");
             System.out.println("1. Register Patient");
             System.out.println("2. Book Appointment");
             System.out.println("3. Display Appointments");
             System.out.println("4. Exit");
-            System.out.println("Enter your choice:");
+            System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
-            
+
             switch (choice) {
-            case 1 -> registerPatient();
-            case 2 -> bookAppointment();
-            case 3 -> displayAppointments();
-            case 4 -> System.out.println("Thank you..");
+                case 1 -> registerPatient();
+                case 2 -> bookAppointment();
+                case 3 -> displayAppointments();
+                case 4 -> System.out.println("Thank you..");
+                default -> System.out.println("Invalid choice.");
             }
-            }while (choice !=4);
-		}
-      private static Object displayAppointments() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	  private static void initilizeData() {
-    	  docters.add(new Docter("Dr. Vivek",26, "9999562355", "D101","Cardiology"));
-    	  docters.add(new Docter("Dr. Ayush",36, "8959562355", "D102","Dentist"));
-    	  docters.add(new Docter("Dr. Som",39, "6393804266", "D103","Heart Specialist"));
-      }
-      private static void registerPatient() {
-    	  scanner.nextLine();
-    	  System.out.print("Enter Patient ID: ");
-    	  String id = scanner.nextLine();
-   
-    	  for(Patient p: patients)
-    	  { 
-    		 if(p.getPatientId().equalsIgnoreCase(id)) 
-    		 {
-    			   System.out.println("Patient already registered");
-    			        return;
-    		 }
-    	  }
-      System.out.print("Enter Name:");
-      String name = scanner.nextLine();
-      System.out.print("Enter Age:");
-      int age = scanner.nextInt();
-      scanner.nextLine();
-      System.out.print("Enter Contact: ");
-      String contact = scanner.nextLine();
-      
-      System.out.print("Enter Type (General/Surgery): ");
-      String type = scanner.nextLine();
-      Patient obj = new Patient(name, age, contact, id,type);
-      
-      private static void bookAppointment() {
-    	  scanner.nextLine();
-    	  System.out.print("Enter Patient ID: ");
-    	  String pid = scanner.nextLine();
-    	  
-    	  
-    	  for(Appointment a:appointments)
-    	  {
-    		  Patient old=a.getPatient();
-    		  String oldpid=old.getPatientId();
-    		  if(oldpid.equals(pid))
-    		  {
-    			  System.out.println(
-    					  "Appointment already booked");
-    		  }
-    	  }
-    	  
-      }
-      
-      
+            
+        } while (choice != 4);
+    }
+
+    private static void initializeData() {
+        doctors.add(new Docter("Dr. Vivek", 45, "7897315972", "D101", "Cardiology"));
+        doctors.add(new Docter("Dr. Raj", 50, "9621020101", "D102", "Orthopedics"));
+        doctors.add(new Docter("Dr. Shivam", 45, "7317664289", "D103","Heart Specialist"));
+ 
+    }
+
+    private static void registerPatient() {
+        scanner.nextLine(); 
+        
+        System.out.print("Enter Patient ID: ");
+        String id = scanner.nextLine();
+        
+        for(Patient p: patients)
+        {
+        	if(p.getPatientId().equalsIgnoreCase(id))
+        	{
+        		System.out.println("Patient already registered");
+        		return;
+        	}
+        }
+        System.out.print("Enter Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter Age: ");
+        int age = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter Contact: ");
+        String contact = scanner.nextLine();
+       
+        System.out.print("Enter Type (General/Surgery): ");
+        String type = scanner.nextLine();
+        Patient obj = new Patient(name, age, contact, id, type);
+        patients.add(obj);
+        System.out.println("Patient Registered Successfully1!.");
+    }
+
+    // list of appointments
+    //-->appointments [ap1, ap2, ap3]
+    private static void bookAppointment() {
+        scanner.nextLine();
+        System.out.print("Enter Patient ID: ");
+        String pid = scanner.nextLine();
+        
+        // 1.check whether patient available in appointment list
+        for(Appointment a:appointments)
+        {
+        	Patient old=a.getPatient();
+        	String oldpid=old.getPatientId();
+        	if(oldpid.equals(pid))
+        	{
+        		System.out.println("Appointment already booked");
+        	}
+        }
+        //2. check whether patient present in the in patient list --> checking of patient registration
+        Patient patient = findPatientById(pid);
+        //3. if patient not found then return
+        if (patient == null) {
+            System.out.println("Patient not found!!!!.");
+            return;
+        }
+        //4. If patient found --> then book appointment
+        System.out.print("Enter Specialization: ");
+        String spec = scanner.nextLine();
+        Docter docter = findDoctorBySpecialization(spec);
+        //5. if doctor not found
+        if (docter == null) {
+            System.out.println("No doctor available with that specialization.");
+            return;
+        }
+        // 6. if doctor available
+        System.out.print("Enter Appointment Date (YYYY-MM-DD): ");
+        String dateStr = scanner.nextLine();
+        LocalDate date = LocalDate.parse(dateStr);
+
+        try {
+            Appointment appointment = new Appointment(patient, docter, date);
+            appointments.add(appointment);
+            System.out.println("Appointment Booked Successfully.");
+        } catch (InvalidAppointmentException e) {
+            System.out.println("Error:" + e.getMessage());
+        }
+    }
+
+    private static void displayAppointments() {
+        if (appointments.isEmpty()) {
+            System.out.println("No appointments found.");
+            return;
+        }
+        for (Appointment a : appointments) {
+            // non static method--> with the help of object
+        	a.displaySummary();
+        }
+    }
+    // method definition 
+    private static Patient findPatientById(String id) {
+        for (Patient p : patients) {
+            if (p.getPatientId().equals(id)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    private static Docter findDoctorBySpecialization(String spec) {
+        for (Docter d : doctors ) {
+            if (d.getSpecialization().equalsIgnoreCase(spec)) {
+                return d;
+            }
+        }
+        return null;
+    }
+}
