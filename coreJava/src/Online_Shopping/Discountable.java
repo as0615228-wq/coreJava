@@ -1,5 +1,6 @@
 package Online_Shopping;
 
-public class Discountable {
+public interface Discountable {
+	double applyDiscount();
 
 }

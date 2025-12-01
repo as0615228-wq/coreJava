@@ -1,5 +1,8 @@
 package Online_Shopping;
 
-public class InvalidCouponException {
+public class InvalidCouponException extends Exception{
+	public InvalidCouponException(String msg) {
+		super(msg);
+	}
 
 }
