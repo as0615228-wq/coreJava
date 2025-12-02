@@ -1,0 +1,4 @@
+Aditya 98 488.5 Maths
+karan 88 888.7 Science
+Shivam 89 235.9 SST
+Satyam 78 892.54 Hindi
