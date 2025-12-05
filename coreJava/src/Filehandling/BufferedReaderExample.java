@@ -13,7 +13,7 @@ public class BufferedReaderExample {
 						int countLine=0;
 						int countword=0;
 						int charcount=0;
-						while((line = br.readLine()) != null);{
+						while((line = br.readLine()) != null){
 							System.out.println(line);
 							charcount+=line.length();
 							String arr[]= line.split(" ");
