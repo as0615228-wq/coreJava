@@ -32,13 +32,9 @@ public class ShopSystem {
 		}
 
 	private static void displayproduct() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	private static void removefromcart() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	private static void addtocart() {
@@ -47,7 +43,7 @@ public class ShopSystem {
 
 	private static void showproduct() {
 		for(Product p: product) {
-			System.out.println(p.getDetails());
+			p.getDetails();
 		}
 	}
 		

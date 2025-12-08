@@ -57,7 +57,7 @@ public class Student {
 	}
 	    
 		public void showReport() {
-				System.out.println("Id")
+				System.out.println("Id");
 		}
 	
 }

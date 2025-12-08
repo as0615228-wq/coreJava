@@ -15,18 +15,18 @@ public class Video_course extends Course {
 	public void setTotalHours(int totalHours) {
 		this.totalHours = totalHours;
 	}
-	
+
 	@Override
 	public void showDetails() {
-		System.out.println(Video Course Id : " +getId()" +| Course Name :"+getName()+" | Subject : "+getsubject()+" | Price : "+getprice()+" | Total Hours :  + gettotalHours());
+		System.out.println("Video Course Id : " +getId()+ " +| Course Name :" +getName()+" | Subject : "+getSubj()+" | Price : "+getPrice()+" | Total Hours : " + getTotalHours());
 	}
-		@Override
-		public double applyDiscount() {
-			double q=getPrice()*10/100;
-			return getPrice()-q
-		}
-	@override
+	@Override
+	public double applyDiscount() {
+		double q=getPrice()*10/100;
+		return getPrice()-q;
+	}
+	@Override
 	public void enroll(Student student) {
-		
+
 	}
 }
